@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="miaoshaproject.dao.OrderDOMapper">
+  <resultMap id="BaseResultMap" type="miaoshaproject.dataobject.OrderDO">
+    <constructor>
+      <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="item_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="promo_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="item_price" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="amount" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="order_price" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, item_id, promo_id, item_price, amount, order_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from order_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="miaoshaproject.dataobject.OrderDO" >
+    insert into order_info (id, user_id, item_id, promo_id,
+      item_price, amount, order_price
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{promoId,jdbcType=INTEGER},
+      #{itemPrice,jdbcType=DECIMAL}, #{amount,jdbcType=INTEGER}, #{orderPrice,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="miaoshaproject.dataobject.OrderDO" >
+    insert into order_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="promoId != null">
+        promo_id,
+      </if>
+      <if test="itemPrice != null">
+        item_price,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="orderPrice != null">
+        order_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="promoId != null">
+        #{promoId,jdbcType=INTEGER},
+      </if>
+      <if test="itemPrice != null">
+        #{itemPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="orderPrice != null">
+        #{orderPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="miaoshaproject.dataobject.OrderDO">
+    update order_info
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        item_id = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemPrice != null">
+        item_price = #{itemPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="orderPrice != null">
+        order_price = #{orderPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="miaoshaproject.dataobject.OrderDO">
+    update order_info
+    set user_id = #{userId,jdbcType=INTEGER},
+      item_id = #{itemId,jdbcType=INTEGER},
+      item_price = #{itemPrice,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=INTEGER},
+      order_price = #{orderPrice,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
